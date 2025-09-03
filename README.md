@@ -10,6 +10,218 @@
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-orange)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)
 ![H2](https://img.shields.io/badge/H2-2.2-green)
+## 👨‍🎓 Información del Alumno
+- **Nombre y Apellido**: Emiliano Massolin
+- **Legajo**: 63059
+
+# 📌 Sistema de Gestión de Empleados
+
+Proyecto académico desarrollado con **Spring Boot 3.5.0**, aplicando arquitectura en capas, principios SOLID, testing, validaciones y despliegue con Docker.
+
+El sistema permite gestionar **empleados, departamentos y proyectos**, con operaciones CRUD y consultas personalizadas.
+
+---
+
+## ⚙️ Requisitos del sistema
+
+- **Java 21**
+- **Maven 3.9+**
+- **Docker y Docker Compose** (para MySQL y PostgreSQL)
+- Cliente HTTP (Postman, curl o similar)
+
+---
+
+## 🚀 Instrucciones de instalación
+
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/sistema-empleados.git
+   cd sistema-empleados
+   ```
+
+2. Compilar el proyecto:
+   ```bash
+   ./mvnw clean install
+   ```
+
+3. Ejecutar con H2 (por defecto, perfil `dev`):
+   ```bash
+   ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+   ```
+
+4. Acceder a la **H2 Console**:
+    - URL: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
+    - JDBC URL: `jdbc:h2:mem:empleadosdb`
+    - Usuario: `sa`
+    - Contraseña: *(vacía)*
+
+---
+
+## 🐳 Instrucciones para Docker
+
+1. Levantar MySQL y PostgreSQL con **Docker Compose**:
+   ```bash
+   docker compose up -d
+   ```
+
+2. Verificar que estén corriendo:
+   ```bash
+   docker compose ps
+   ```
+
+3. Apagar contenedores:
+   ```bash
+   docker compose down
+   ```
+
+4. Apagar y eliminar volúmenes:
+   ```bash
+   docker compose down -v
+   ```
+
+---
+
+## 🔀 Profiles disponibles
+
+- **dev** → Base de datos H2 en memoria (por defecto).
+- **mysql** → Conexión a MySQL.
+- **postgres** → Conexión a PostgreSQL.
+
+Ejecutar con un perfil específico:
+
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql
+./mvnw spring-boot:run -Dspring-boot.run.profiles=postgres
+```
+
+---
+
+## 📡 Documentación de Endpoints
+
+### 👨 Empleados
+
+```java
+// Obtener todos los empleados
+GET /api/empleados
+
+// Obtener empleado por ID
+GET /api/empleados/{id}
+
+// Crear empleado
+POST /api/empleados
+
+// Actualizar empleado
+PUT /api/empleados/{id}
+
+// Eliminar empleado
+DELETE /api/empleados/{id}
+
+// Buscar por departamento
+GET /api/empleados/departamento/{nombre}
+
+// Buscar por rango de salario
+GET /api/empleados/salario?min=30000&max=50000
+```
+
+### 🏢 Departamentos
+
+```java
+// Obtener todos los departamentos
+GET /api/departamentos
+
+// Obtener departamento por ID
+GET /api/departamentos/{id}
+
+// Crear departamento
+POST /api/departamentos
+
+// Actualizar departamento
+PUT /api/departamentos/{id}
+
+// Eliminar departamento
+DELETE /api/departamentos/{id}
+```
+
+### 📂 Proyectos
+
+```java
+// Obtener todos los proyectos
+GET /api/proyectos
+
+// Obtener proyecto por ID
+GET /api/proyectos/{id}
+
+// Crear proyecto
+POST /api/proyectos
+
+// Actualizar proyecto
+PUT /api/proyectos/{id}
+
+// Eliminar proyecto
+DELETE /api/proyectos/{id}
+
+// Buscar proyectos activos (fecha_fin > hoy)
+GET /api/proyectos/activos
+```
+
+---
+
+## 📖 Ejemplos de uso
+
+### Crear un empleado (POST `/api/empleados`)
+```json
+{
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "email": "juan.perez@empresa.com",
+  "fechaContratacion": "2025-09-01",
+  "salario": 50000.00,
+  "departamento": { "id": 1 }
+}
+```
+
+### Crear un departamento (POST `/api/departamentos`)
+```json
+{
+  "nombre": "IT",
+  "descripcion": "Departamento de Tecnología"
+}
+```
+
+### Crear un proyecto (POST `/api/proyectos`)
+```json
+{
+  "nombre": "Sistema de Inventario",
+  "descripcion": "Proyecto interno de gestión",
+  "fechaInicio": "2025-09-01",
+  "fechaFin": "2025-12-31"
+}
+```
+
+---
+
+## 🧪 Testing
+
+- Tests de **repositorios** con `@DataJpaTest`.
+- Tests de **servicios** con `@ExtendWith(MockitoExtension.class)` y `@MockitoMock`.
+- Tests de **controladores** con `@WebMvcTest` y `MockMvc`.
+
+Ejecutar todos los tests:
+```bash
+./mvnw test
+```
+
+---
+
+## 📚 Documentación adicional
+
+- [Spring Boot Docs](https://spring.io/projects/spring-boot)
+- [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [JUnit 5](https://junit.org/junit5/)
+
+---
+
 
 ## ⚠️ Importante: Antes de Comenzar
 
